@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    результат расчета
+{% endblock %}
+
+{% block main %}
+
+<hr>
+<div id="result_html">
+    <div style="text-align: left">
+        <p><b>Определение снеговых нагрузок на покрытие без учета заноса (см. 1.6.5 СН 2.01.04)</b><p>
+        <p>Сбор снеговой нагрузки ведем согласно указаниям СН 2.01.04.</p>
+        <p>Согласно указаниям национального приложения НП.1 на территории РБ
+        применимы только нормальные условия, установленные в соответствии с 3.2(1).</p>
+        <p>Характеристическое значение снеговой нагрузки на покрытие для
+        постоянных/переходных расчетных ситуаций следует определять согласно п.5.2(3):</p>
+    </div>
+
+    <p><b>s=&#956;<sub>i</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub></b></p>
+
+    <div style="text-align: left">
+        <p>Где:</p>
+        <ul class="list-unstyled">
+            <li><b>&#956;<sub>i</sub></b>={{ mui }} - коэффициент формы снеговых нагрузок (п.5.3) при <b>&#945;</b>={{ slope }} и с учетом п.п.5.3.2(2) и 5.3.3(2);</li>
+            <!-- <li><img src="/static/snow_load1.jpg" alt="roof_slope" height="150"></li> -->
+            <li><b>С<sub>e</sub></b>={{ Ce }} - коэффициент окружающей среды (табл. НП.1.3(BY));</li>
+            <li><b>С<sub>t</sub></b>={{ Ct }} - температурный коэффициент (п.5.2(8) НП.1(BY));</li>
+            <li><b>s<sub>k</sub></b>={{ Sk_formula }}{{ Sk }}кПа - Характеристическое значение снеговых нагрузок на грунт для района
+            г.{{ city }} (район {{ snow_area }}) при абсолютной отметке местности А={{ level }};</li>
+        </ul>
+
+        <p>Тогда:</p>
+        <p><b>s=&#956;<sub>i</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub> = {{ mui }}&#8729;{{ Ce }}&#8729;{{ Ct }}&#8729;{{ Sk }}={{ snow_load }}кПа</b></p>
+        <p>Итого: Характеристическое значение нагрузки на покрытие кровли составляет <b>s={{ snow_load }}кПа</b></p>
+    </div>
+</div>
+
+<hr>
+
+<!-- button to copy to clipboard -->
+<button class="btn btn-primary" id="button1" onclick="Copy_to_clipboard('result_html')">Копировать в буфер обмена</button>
+
+<!-- button to download rtf file -->
+<p><div class="content-footer">
+    <button class="btn btn-primary" id="btn-export" onclick="HTML_to_RTF();">Скачать в формате .DOC</button>
+</div></p>
+
+<!-- optional advice to copy the text result -->
+<p>либо самостоятельно выделите и скопируйте (ctrl+C) текст выше (между 2х линий) в буфер обмена и вставьте в свой отчёт (ctrl+V)</p>
+
+
+
+<script>
+    //function to copy to the clipboard
+    function Copy_to_clipboard(containerid) {
+      if (document.selection) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(document.getElementById(containerid));
+        range.select().createTextRange();
+        document.execCommand("copy");
+      } else if (window.getSelection) {
+        var range = document.createRange();
+        range.selectNode(document.getElementById(containerid));
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        alert("Текст скопирован. Можете вставить его в свой документ")
+      }
+    }
+
+    //function to create an rtf file from the part of HTML code
+    function HTML_to_RTF(){
+       var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+            "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+            "xmlns='http://www.w3.org/TR/REC-html40'>"+
+            "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+       var footer = "</body></html>";
+       var sourceHTML = header+document.getElementById("result_html").innerHTML+footer;
+
+       var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+       var fileDownload = document.createElement("a");
+       document.body.appendChild(fileDownload);
+       fileDownload.href = source;
+       fileDownload.download = 'document.doc';
+       fileDownload.click();
+       document.body.removeChild(fileDownload);
+    }
+</script>
+
+
+
+{% endblock %}

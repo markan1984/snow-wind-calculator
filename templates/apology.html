@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block main %}
+    <h1>Error:{{ top }}</h1>
+    <img alt="{{ top }}" class="img-fluid" src="/static/error_image.jpg">
+    <h1>{{ bottom }}</h1>
+{% endblock %}

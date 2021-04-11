@@ -1,0 +1,136 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Снеговые воздействия
+{% endblock %}
+
+{% block main %}
+
+<h5>Определение снеговых нагрузок на покрытие без учета заноса (см. 1.6.5 СН 2.01.04)</h5>
+<hr>
+<div class="text-start">
+  <p>Характеристическое значение снеговой нагрузки на покрытие для
+  постоянных/переходных расчетных ситуаций следует определять согласно п.5.2(3) СН 2.01.04:</p>
+</div>
+
+<h5>s=&#956;<sub>i</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub></h5>
+
+<hr>
+
+<h5>Исходные данные для расчета:</h5>
+<form action="/snow1" method="post">
+    <table>
+        <thead>
+            <tr>
+                <th>Показатель</th>
+                <th>Значение</th>
+                <th>Примечание</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Уклон рассматриваемого участка кровли <b>&#945;</b></td>
+                <td>
+                    <input autocomplete="on" autofocus class="form-control" name="slope" placeholder="целое число от 0 до 90" type="text">
+                </td>
+                <td class="form-text">
+                    <ul class="list-unstyled">
+                        <li><img src="/static/roof_slope1.bmp" alt="roof_slope" height="60"></li>
+                        <li>при 0&#176;&#8804;&#945;&#8804;30&#176; &#8594; &#956;<sub>1</sub>=1,0</li>
+                        <li>при 30&#176;&#60;&#945;&#60;60&#176; &#8594; &#956;<sub>1</sub>=0,8&#8729;(60-&#945;)/30</li>
+                        <li>при &#945;&#8805;60&#176; &#8594; &#956;<sub>1</sub>=0,0</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Наличие на кровле снегозадерживающий устройств</td>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="roof_check">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            -выбрать если есть снегозадержатели
+                        </label>
+                    </div>
+                </td>
+                <td class="form-text">
+                    <ul class="list-unstyled">
+                        <li>согласно п.п.5.3.2(2) и 5.3.3(2) при наличии</li>
+                        <li>снегозадержателей коэффициент &#956;<sub>i</sub>&#8805;0.8</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Коэффициент окружающей среды <b>С<sub>e</sub></b></td>
+                <td>
+                    <select class="form-select" aria-label="Default select example" name="Ce">
+                        <option value="0.8">Не защищенные от ветра (С<sub>e</sub>=0.8)</option>
+                        <option selected value="1.0">Обычные/закрытые (С<sub>e</sub>=1.0)</option>
+                    </select>
+                <div id="emailHelp" class="form-text">Выберите условия местности</div>
+                </td>
+                <td>
+                    <div id="emailHelp" class="form-text">
+                        <ul class="list-unstyled">
+                            <li>Типы местности расписаны в табл. НП.1.3(BY)[1].</li>
+                            <li>В большинстве случаев <b>Се=1.0</b>.</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Температурный коэффициент <b>С<sub>t</sub></b></td>
+                <td>
+                    <select class="form-select" aria-label="Default select example" name="Ct">
+                        <option value="0.8">С<sub>t</sub>=0.8</option>
+                        <option selected value="1.0">С<sub>t</sub>=1.0</option>
+                    </select>
+                </td>
+                <td>
+                    <div id="emailHelp" class="form-text">
+                        <ul class="list-unstyled">
+                            <li>Требования расписаны в п.5.2(8) НП.1(BY)[1].</li>
+                            <li>В большинстве случаев <b>Сt=1.0</b>.</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Город (район расположения)</td>
+                <td>
+                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="начните вводить название..." name="city">
+                        <datalist id="datalistOptions">
+                        <!-- List of lists ('Барановичи', '2в', 23, '193')-->
+                        {% for cities in cities %}
+                        <option value="{{ cities[0] }} &#8594; (Отметка={{ cities[3] }}, район={{ cities[1] }})">
+                        {% endfor %}
+                        </datalist>
+                </td>
+                <td>
+                    <div id="emailHelp" class="form-text">
+                        <ul class="list-unstyled">
+                            <li>Отметка (Над Уровнем Моря) принята (по вики) </li>
+                            <li>на случай если точных данных нет</li>
+                            <li>и уточняется в поле ниже</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Точная абсолютная отметка земли в районе здания/сооружения</td>
+                <td>
+                    <input width="200" autocomplete="off" class="form-control" name="level" placeholder="целое число от 100 до 320" type="text">
+                    <div id="emailHelp" class="form-text">необязательное поле (если отметка неизвестна)</div>
+                </td>
+                <td>
+                    <div id="emailHelp" class="form-text">
+                    Принимаются только целые числа от 100 до 320
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <button class="btn btn-primary" type="submit">Выполнить расчет</button>
+</form>
+
+{% endblock %}
