@@ -18,7 +18,7 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 def after_request(response):
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Expires"] = 0
-    response.headers["Pragma"] = "no-cache"
+    response.headers["Pragma"]= "no-cache"
     return response
 
 
