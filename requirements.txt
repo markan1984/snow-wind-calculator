@@ -1,8 +1,10 @@
 Flask==1.1.2
 Flask-Session==0.3.2
+gunicorn==20.1.0
 Jinja2==2.11.3
-requests==2.25.1
-Werkzeug==1.0.1
-lxml==2.3.2
+lxml==4.6.3
+pylint-flask==0.6
 python-docx==0.8.10
 python-math==0.0.1
+requests==2.25.1
+Werkzeug==1.0.1
