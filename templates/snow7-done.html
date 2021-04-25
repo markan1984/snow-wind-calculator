@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    результат расчета
+{% endblock %}
+
+{% block main %}
+
+<hr>
+<div id="result_html">
+    <div style="text-align: left">
+        <h5>Определение снеговых нагрузок на снегоудерживающие заграждения.</h5>
+        <p>Сбор снеговой нагрузки ведем согласно указаниям СН 2.01.04.</p>
+        <p>Cхема снеговых нагрузок на снегоудерживающие заграждения будет иметь вид:</p>
+        <p style="text-align: center"><img src="/static/snow_pictures/snow_slope7.jpg" alt="Схема снеговых нагрузок" height="130"></p>
+        <p>Где:</p>
+        <ul class="list-unstyled">
+            <li><b>&#945;={{ slope }}&#176;</b> - уклон кровли;</li>
+            <li><b>b={{ b }}м</b> - горизонтальное расстояние от снегоудерживающей решетки или надстройки до следующей решетки или до конька;</li>
+            <li><b>Fs=s&#8729;b&#8729;sin({{ slope }}&#176;)={{ s }}&#8729;{{ b }}&#8729;{{ sinalfa }}={{ Fs }}кН/м</b> - Искомая касательная нагрузка от снега (в плоскости скольжения) на 1м.п. заграждения.</li>
+        </ul>
+    </div>
+</div>
+<hr>
+
+<!-- button to copy to clipboard -->
+<button class="btn btn-primary" id="button1" onclick="Copy_to_clipboard('result_html')">Копировать в буфер обмена</button>
+
+<script>
+    //function to copy to the clipboard
+    function Copy_to_clipboard(containerid) {
+      if (document.selection) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(document.getElementById(containerid));
+        range.select().createTextRange();
+        document.execCommand("copy");
+      } else if (window.getSelection) {
+        var range = document.createRange();
+        range.selectNode(document.getElementById(containerid));
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        alert("Текст скопирован. Можете вставить его в свой документ")
+      }
+    }
+</script>
+
+{% endblock %}

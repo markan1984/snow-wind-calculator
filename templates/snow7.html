@@ -1,24 +1,15 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Снег на односкатном покрытии
+    Снеговые нагрузки на снегозадержатели
 {% endblock %}
 
 {% block main %}
 
-<h5>Определение снеговых нагрузок на односкатное покрытие согласно СН 2.01.04</h5>
+<h5>Определение снеговых нагрузок на снегоудерживающие заграждения согласно СН 2.01.04</h5>
 <hr>
-<div class="text-start">
-  <p>Характеристическое значение снеговой нагрузки на покрытие для
-  постоянных/переходных расчетных ситуаций следует определять согласно п.5.2(3):</p>
-</div>
-
-<h5>s=&#956;<sub>i</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub></h5>
-
-<hr>
-
 <h5>Исходные данные для расчета:</h5>
-<form action="/snow1" method="post">
+<form action="/snow7" method="post">
     <table>
         <thead>
             <tr>
@@ -31,31 +22,22 @@
             <tr>
                 <td>Уклон рассматриваемого участка кровли <b>&#945;</b> (градусы)</td>
                 <td>
-                    <input autocomplete="off" autofocus class="form-control" name="slope" placeholder="целое число от 0 до 90" type="text">
+                    <input autocomplete="on" autofocus class="form-control" name="slope" placeholder="целое число от 0 до 90" type="text">
                 </td>
                 <td class="form-text">
-                    <ul class="list-unstyled">
-                        <li><img src="/static/snow_pictures/snow_slope1.jpg" alt="roof_slope" height="60"></li>
-                        <li>при 0&#176;&#8804;&#945;&#8804;30&#176; &#8594; &#956;<sub>1</sub>=1,0</li>
-                        <li>при 30&#176;&#60;&#945;&#60;60&#176; &#8594; &#956;<sub>1</sub>=0,8&#8729;(60-&#945;)/30</li>
-                        <li>при &#945;&#8805;60&#176; &#8594; &#956;<sub>1</sub>=0,0</li>
-                    </ul>
+                    <img src="/static/snow_pictures/snow_slope7.jpg" alt="схема кровли" height="100">
                 </td>
             </tr>
             <tr>
-                <td>Наличие на кровле снегозадерживающий устройств</td>
+                <td>Расстояние <b>b</b> (миллиметры)</td>
                 <td>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="roof_check">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            -выбрать если есть снегозадержатели
-                        </label>
-                    </div>
+                    <input autocomplete="on" autofocus class="form-control" name="b" placeholder="положительное целое число" type="text">
                 </td>
                 <td class="form-text">
                     <ul class="list-unstyled">
-                        <li>согласно п. 5.3.2(2) при наличии</li>
-                        <li>снегозадержателей коэффициент &#956;<sub>i</sub>&#8805;0.8</li>
+                        <li>Горизонтальное расстояние от</li>
+                        <li>снегоудерживающей решетки или надстройки</li>
+                        <li>до следующей решетки или до конька</li>
                     </ul>
                 </td>
             </tr>
@@ -108,7 +90,7 @@
                 <td>
                     <div id="emailHelp" class="form-text">
                         <ul class="list-unstyled">
-                            <li>Отметка (Над Уровнем Моря) принята (по вики) </li>
+                            <li>Отметка (над уровнем моря) принята (по Вики) </li>
                             <li>на случай если точных данных нет</li>
                             <li>и уточняется в поле ниже</li>
                         </ul>

@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    результат расчета
+{% endblock %}
+
+{% block main %}
+
+<hr>
+<div id="result_html">
+    <div style="text-align: left">
+        <h5>Определение снеговых нагрузок у надстроек и заграждений кровли</h5>
+        <p>Сбор снеговой нагрузки ведем согласно указаниям СН 2.01.04.</p>
+        <p>Cхема распределения снеговых нагрузок будет иметь вид:</p>
+        <p style="text-align: center"><img src="/static/snow_pictures/snow_load6.jpg" alt="Схема снеговых нагрузок" height="130"></p>
+        <p>Где:</p>
+        <ul class="list-unstyled">
+            <li><b>h={{ h }}м</b> - высота надстройки или заграждения;</li>
+            <li><b>l<sub>s</sub>={{ ls }}м</b> - длина зоны повышенных снегоотложений;</li>
+            <li><b>s<sub>1</sub>=&#956;<sub>1</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub> =
+            {{ mu1 }}&#8729;{{ Ce }}&#8729;{{ Ct }}&#8729;{{ Sk }}={{ s1 }}кПа</b> (согласно п.6.2(2));</li>
+            <li><b>s<sub>2</sub>=&#956;<sub>2</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub> =
+            {{ mu2 }}&#8729;{{ Ce }}&#8729;{{ Ct }}&#8729;{{ Sk }}={{ s2 }}кПа</b> (согласно п.6.2(2)).</li>
+        </ul>
+    </div>
+</div>
+<hr>
+
+<!-- button to copy to clipboard -->
+<button class="btn btn-primary" id="button1" onclick="Copy_to_clipboard('result_html')">Копировать в буфер обмена</button>
+
+
+<script>
+    //function to copy to the clipboard
+    function Copy_to_clipboard(containerid) {
+      if (document.selection) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(document.getElementById(containerid));
+        range.select().createTextRange();
+        document.execCommand("copy");
+      } else if (window.getSelection) {
+        var range = document.createRange();
+        range.selectNode(document.getElementById(containerid));
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        alert("Текст скопирован. Можете вставить его в свой документ")
+      }
+    }
+</script>
+
+
+
+{% endblock %}

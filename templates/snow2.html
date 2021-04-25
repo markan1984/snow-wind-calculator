@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Снег на односкатном покрытии
+    Снег на двускатном покрытии
 {% endblock %}
 
 {% block main %}
 
-<h5>Определение снеговых нагрузок на односкатное покрытие согласно СН 2.01.04</h5>
+<h5>Определение снеговых нагрузок на двускатные покрытия согласно СН 2.01.04</h5>
 <hr>
 <div class="text-start">
   <p>Характеристическое значение снеговой нагрузки на покрытие для
@@ -18,7 +18,7 @@
 <hr>
 
 <h5>Исходные данные для расчета:</h5>
-<form action="/snow1" method="post">
+<form action="/snow2" method="post">
     <table>
         <thead>
             <tr>
@@ -29,13 +29,17 @@
         </thead>
         <tbody>
             <tr>
-                <td>Уклон рассматриваемого участка кровли <b>&#945;</b> (градусы)</td>
                 <td>
-                    <input autocomplete="off" autofocus class="form-control" name="slope" placeholder="целое число от 0 до 90" type="text">
+                    <p>Уклон первого ската кровли <b>&#945;<sub>1</sub></b> (градусы)</p>
+                    <p>Уклон второго ската кровли <b>&#945;<sub>2</sub></b> (градусы)</p>
+                </td>
+                <td>
+                    <input autocomplete="off" autofocus class="form-control" name="slope1" placeholder="целое число от 0 до 90" type="text">
+                    <input autocomplete="off" autofocus class="form-control" name="slope2" placeholder="целое число от 0 до 90" type="text">
                 </td>
                 <td class="form-text">
                     <ul class="list-unstyled">
-                        <li><img src="/static/snow_pictures/snow_slope1.jpg" alt="roof_slope" height="60"></li>
+                        <li><img src="/static/snow_pictures/snow_slope2.jpg" alt="roof_slope" height="50"></li>
                         <li>при 0&#176;&#8804;&#945;&#8804;30&#176; &#8594; &#956;<sub>1</sub>=1,0</li>
                         <li>при 30&#176;&#60;&#945;&#60;60&#176; &#8594; &#956;<sub>1</sub>=0,8&#8729;(60-&#945;)/30</li>
                         <li>при &#945;&#8805;60&#176; &#8594; &#956;<sub>1</sub>=0,0</li>
@@ -43,18 +47,23 @@
                 </td>
             </tr>
             <tr>
-                <td>Наличие на кровле снегозадерживающий устройств</td>
+                <td>
+                    <p>Наличие на скате 1 снегозадерживающий устройств</p>
+                    <p>Наличие на скате 2 снегозадерживающий устройств</p>
+                </td>
                 <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="roof_check">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            -выбрать если есть снегозадержатели
-                        </label>
+                        <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="roof_check1">
+                        <label class="form-check-label" for="flexCheckDefault">-есть снегозадержатели на скате 1</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="roof_check2">
+                        <label class="form-check-label" for="flexCheckDefault">-есть снегозадержатели на скате 2</label>
                     </div>
                 </td>
                 <td class="form-text">
                     <ul class="list-unstyled">
-                        <li>согласно п. 5.3.2(2) при наличии</li>
+                        <li>согласно п. 5.3.3(2) при наличии</li>
                         <li>снегозадержателей коэффициент &#956;<sub>i</sub>&#8805;0.8</li>
                     </ul>
                 </td>

@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    результат расчета
+{% endblock %}
+
+{% block main %}
+
+<hr>
+<div id="result_html">
+    <div style="text-align: left">
+        <h5>Определение снеговых нагрузок на многопролетные покрытия</h5>
+        <p>Сбор снеговой нагрузки ведем согласно указаниям СН 2.01.04.</p>
+        <p>Согласно указаниям национального приложения НП.1 на территории РБ
+        применимы только нормальные условия, установленные в соответствии с 3.2(1).</p>
+        <p>Характеристическое значение снеговой нагрузки на двускатное покрытие для
+        постоянных/переходных расчетных ситуаций следует определять согласно п.5.2(3):</p>
+    </div>
+
+    <p><b>s=&#956;<sub>i</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub></b></p>
+
+    <div style="text-align: left">
+        <p>Где:</p>
+        <ul class="list-unstyled">
+            <li><b>&#956;<sub>1</sub>(&#945;<sub>1</sub>)</b>={{ mui1 }} - коэффициент формы снеговых нагрузок
+            для первого ската кровли при <b>&#945;<sub>1</sub></b>={{ slope1 }}&#176; и с учетом п.5.3.4(2);</li>
+            <li><b>&#956;<sub>1a</sub>(&#945;<sub>2</sub>)</b>={{ mui2a }} - коэффициент формы снеговых нагрузок
+            для второго ската кровли при <b>&#945;<sub>2</sub></b>={{ slope2 }}&#176; и с учетом соседнего ската;</li>
+            <li><b>&#956;<sub>1a</sub>(&#945;<sub>1</sub>)</b>={{ mui1a }} - коэффициент формы снеговых нагрузок
+            для первого ската кровли при <b>&#945;<sub>1</sub></b>={{ slope1 }}&#176; и с учетом соседнего ската;</li>
+            <li><b>&#956;<sub>1</sub>(&#945;<sub>2</sub>)</b>={{ mui2 }} - коэффициент формы снеговых нагрузок
+            для второго ската кровли при <b>&#945;<sub>2</sub></b>={{ slope2 }}&#176; и с учетом п.5.3.4(2);</li>
+
+            <li><b>&#956;<sub>2</sub>(&#945;)</b>={{ mu2 }} - коэффициент формы снеговых нагрузок
+            для центральной части кровли с учетом заноса снега при <b>&#945;=(&#945;<sub>1</sub>+&#945;<sub>2</sub>)/2</b>
+            и с учетом табл 5.2 и п.5.3.4(3);</li>
+            <li><b>С<sub>e</sub></b>={{ Ce }} - коэффициент окружающей среды (табл. НП.1.3(BY));</li>
+            <li><b>С<sub>t</sub></b>={{ Ct }} - температурный коэффициент (п.5.2(8) НП.1(BY));</li>
+            <li><b>s<sub>k</sub></b>={{ Sk_formula }}{{ Sk }}кПа - характеристическое значение снеговых нагрузок на грунт для района
+            г.{{ city }} (район {{ snow_area }}) при абсолютной отметке местности А={{ level }};</li>
+        </ul>
+        <p>В расчете следует рассматривать 2 случая распределения снеговых нагрузок: без учета заноса снега и с учетом заноса.</p>
+        <p style="text-align: center"><img src="/static/snow_pictures/snow_load3.jpg" alt="Схема нагрузок на кровлю" height="230"></p>
+
+        <p><b>Для случая I</b> (без учета заноса снега) схема распределения снеговых нагрузок будет иметь вид:</p>
+        <p style="text-align: center"><img src="/static/snow_pictures/snow_load3-1.jpg" alt="Схема случая I" height="110"></p>
+
+        <p>Где:</p>
+        <p><b>s<sub>1</sub>=&#956;<sub>1</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub> = {{ mui1 }}&#8729;{{ Ce }}&#8729;{{ Ct }}&#8729;{{ Sk }}={{ s1 }}кПа</b> - на скат 1 (с &#945;<sub>1</sub>={{ slope1 }}&#176;).</p>
+        <p><b>s<sub>2a</sub>=&#956;<sub>1a</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub> = {{ mui2a }}&#8729;{{ Ce }}&#8729;{{ Ct }}&#8729;{{ Sk }}={{ s2a }}кПа</b> - на скат 1 (с &#945;<sub>2</sub>={{ slope2 }}&#176;и с учетом того что соседний скат является по сути снегозадержателем).</p>
+        <p><b>s<sub>1a</sub>=&#956;<sub>1a</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub> = {{ mui1a }}&#8729;{{ Ce }}&#8729;{{ Ct }}&#8729;{{ Sk }}={{ s1a }}кПа</b> - на скат в ендовой части (с &#945;<sub>1</sub>={{ slope1 }}&#176; и с учетом того что соседний скат является по сути снегозадержателем).</p>
+        <p><b>s<sub>2</sub>=&#956;<sub>1</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub> = {{ mui2 }}&#8729;{{ Ce }}&#8729;{{ Ct }}&#8729;{{ Sk }}={{ s2 }}кПа</b> - на скат 2 (с &#945;<sub>2</sub>={{ slope2 }}&#176;).</p>
+
+        <p><b>Для случая II</b> (с учетом заноса снега) схема распределения снеговых нагрузок будет иметь вид:</p>
+        <p style="text-align: center"><img src="/static/snow_pictures/snow_load3-2.jpg" alt="Схема случая II" height="150"></p>
+        <p>Где:</p>
+        <p><b>s<sub>1</sub>=&#956;<sub>1</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub> = {{ mui1 }}&#8729;{{ Ce }}&#8729;{{ Ct }}&#8729;{{ Sk }}={{ s1 }}кПа</b> - на скат 1 (с &#945;<sub>1</sub>={{ slope1 }}&#176;).</p>
+        <p><b>s<sub>3</sub>=&#956;<sub>2</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub> = {{ mu2 }}&#8729;{{ Ce }}&#8729;{{ Ct }}&#8729;{{ Sk }}={{ s3 }}кПа</b> - на центральную часть кровли (с &#945;=(&#945;<sub>1</sub>+&#945;<sub>2</sub>)/2).</p>
+        <p><b>s<sub>2</sub>=&#956;<sub>1</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub> = {{ mui2 }}&#8729;{{ Ce }}&#8729;{{ Ct }}&#8729;{{ Sk }}={{ s2 }}кПа</b> - на скат 2 (с &#945;<sub>2</sub>={{ slope2 }}&#176;).</p>
+
+    </div>
+</div>
+
+<hr>
+
+<!-- button to copy to clipboard -->
+<button class="btn btn-primary" id="button1" onclick="Copy_to_clipboard('result_html')">Копировать в буфер обмена</button>
+
+
+<script>
+    //function to copy to the clipboard
+    function Copy_to_clipboard(containerid) {
+      if (document.selection) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(document.getElementById(containerid));
+        range.select().createTextRange();
+        document.execCommand("copy");
+      } else if (window.getSelection) {
+        var range = document.createRange();
+        range.selectNode(document.getElementById(containerid));
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        alert("Текст скопирован. Можете вставить его в свой документ")
+      }
+    }
+</script>
+
+
+
+{% endblock %}

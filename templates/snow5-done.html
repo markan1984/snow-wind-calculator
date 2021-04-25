@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    результат расчета
+{% endblock %}
+
+{% block main %}
+
+<hr>
+<div id="result_html">
+    <div style="text-align: left">
+        <h5>Определение снеговых нагрузок на перепаде кровли</h5>
+        <p>Сбор снеговой нагрузки ведем согласно указаниям СН 2.01.04.</p>
+        <p>В расчете следует рассматривать два случая распределения снеговых нагрузок: без учета заноса снега и с учетом заноса.</p>
+        <p style="text-align: center"><img src="{{ p_link1 }}" alt="Схема нагрузок на кровлю" height="230"></p>
+        <p><b>Где: b1={{ b1 }}м, b2={{ b2 }}м, h={{ h }}м, &#945;<sub>1</sub>={{ slope1 }}&#176;, &#945;<sub>2</sub>={{ slope2 }}&#176;, l<sub>s</sub>={{ ls }}м.</b></p>
+        <p>Коэффициенты формы снеговой нагрузки, которые необходимо применять для покрытий, примыкающих к более высоким сооружениям рассчитывают по следующим формулам:</p>
+        <ul class="list-unstyled">
+            <li><b>&#956;<sub>1</sub>(&#945;<sub>2</sub>)</b>={{ mui2 }} - коэффициент формы снеговых нагрузок для нижележащего покрытия без учета заносов снега но с учетом таблицы 5.2 и п.5.3.2(2);</li>
+            <li><b>&#956;<sub>2</sub>=&#956;<sub>s</sub>+&#956;<sub>w</sub>={{ mus }}+{{ muw }}={{ mu2 }}</b> - коэффициент формы снеговых нагрузок для нижележащего покрытия с учетом заносов и сползания снега;</li>
+            <li>Где:</li>
+            <li><b>&#956;<sub>s</sub>={{ mus }}</b> - коэффициент формы снеговой нагрузки, учитывающий соскальзывание снега с вышележащей кровли согласно п. 5.3.6(1)</li>
+            <li><b>&#956;<sub>w</sub></b> - коэффициент формы снеговой нагрузки, учитывающий влияние ветра:</li>
+            <li><b>&#956;<sub>w</sub>=(b1+b2)/2h&#10877;&#947;h/s<sub>k</sub> &#10132; &#10132; ({{ b1 }}+{{ b2 }})/(2*{{ h }})&#10877;2*{{ h }}/{{ Sk }}.</b></li>
+            <li><b>&#956;<sub>w</sub>={{ muw }}</b> - Учитывая площадь нижележащей кровли S={{ b2 }}x{{ L }}={{ S }}м² и требования п.5.3.6(1) НП.1</li>
+            <li><b>s<sub>k</sub>={{ Sk_formula }}{{ Sk }}кПа</b> - характеристическое значение снеговых нагрузок на грунт для района
+            г.{{ city }} (район {{ snow_area }}) при абсолютной отметке местности А={{ level }};</li>
+            <li><b>С<sub>e</sub></b>={{ Ce }} - коэффициент окружающей среды (табл. НП.1.3(BY));</li>
+            <li><b>С<sub>t</sub></b>={{ Ct }} - температурный коэффициент (п.5.2(8) НП.1(BY));</li>
+        </ul>
+        <p></p>
+        <p><b>Для случая I</b> (без учета заноса снега) схема распределения снеговых нагрузок будет иметь вид:</p>
+        <p style="text-align: center"><img src="{{ p_link2 }}" alt="Схема случая I" height="140"></p>
+        <p>Где:</p>
+        <p><b>s=&#956;<sub>1</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub> =
+        {{ mui2 }}&#8729;{{ Ce }}&#8729;{{ Ct }}&#8729;{{ Sk }}={{ s2 }}кПа</b> (с учетом уклона пониженной кровли &#945;<sub>2</sub>={{ slope2 }}&#176; и с учетом п.5.3.2(2)).</p>
+
+        <p><b>Для случая II</b> (с учетом заноса снега) схема распределения снеговых нагрузок будет иметь вид:</p>
+        <p style="text-align: center"><img src="{{ p_link3 }}" alt="Схема случая II" height="180"></p>
+        <p>Где:</p>
+        <ul class="list-unstyled">
+            <li><b>l<sub>s</sub>={{ ls }}м</b> - длина зоны повышенных снегоотложений</li>
+            <li><b>s<sub>3</sub>=&#956;<sub>2</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub> =
+            {{ mu2 }}&#8729;{{ Ce }}&#8729;{{ Ct }}&#8729;{{ Sk }}={{ s3 }}кПа</b>.</li>
+            <li><b>s<sub>2</sub>={{ sx }}кПа</b>.</li>
+            <li><b>s<sub>1</sub>=&#956;<sub>1</sub>&#8729;C<sub>e</sub>&#8729;C<sub>t</sub>&#8729;s<sub>k</sub> =
+            {{ mui2 }}&#8729;{{ Ce }}&#8729;{{ Ct }}&#8729;{{ Sk }}={{ s2 }}кПа</b> (с учетом уклона пониженной кровли &#945;<sub>2</sub>={{ slope2 }}&#176; и с учетом п.5.3.2(2)).</li>
+        </ul>
+    </div>
+<hr>
+
+<!-- button to copy to clipboard -->
+<button class="btn btn-primary" id="button1" onclick="Copy_to_clipboard('result_html')">Копировать в буфер обмена</button>
+
+
+<script>
+    //function to copy to the clipboard
+    function Copy_to_clipboard(containerid) {
+      if (document.selection) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(document.getElementById(containerid));
+        range.select().createTextRange();
+        document.execCommand("copy");
+      } else if (window.getSelection) {
+        var range = document.createRange();
+        range.selectNode(document.getElementById(containerid));
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        alert("Текст скопирован. Можете вставить его в свой документ")
+      }
+    }
+</script>
+
+
+
+{% endblock %}

@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Снег на односкатном покрытии
+    Снег на арочном покрытии
 {% endblock %}
 
 {% block main %}
 
-<h5>Определение снеговых нагрузок на односкатное покрытие согласно СН 2.01.04</h5>
+<h5>Определение снеговых нагрузок на арочные покрытия согласно СН 2.01.04</h5>
 <hr>
 <div class="text-start">
   <p>Характеристическое значение снеговой нагрузки на покрытие для
@@ -18,7 +18,7 @@
 <hr>
 
 <h5>Исходные данные для расчета:</h5>
-<form action="/snow1" method="post">
+<form action="/snow4" method="post">
     <table>
         <thead>
             <tr>
@@ -29,38 +29,24 @@
         </thead>
         <tbody>
             <tr>
-                <td>Уклон рассматриваемого участка кровли <b>&#945;</b> (градусы)</td>
                 <td>
-                    <input autocomplete="off" autofocus class="form-control" name="slope" placeholder="целое число от 0 до 90" type="text">
+                    <p>Ширина здания, <b>b</b> (миллиметры)</p>
+                    <p>Высота арочной части кровли, <b>h</b> (миллиметры)</p>
+                </td>
+                <td>
+                    <input autocomplete="off" autofocus class="form-control" name="b" placeholder="целое положительное число" type="text">
+                    <input autocomplete="off" autofocus class="form-control" name="h" placeholder="целое положительное число" type="text">
                 </td>
                 <td class="form-text">
                     <ul class="list-unstyled">
-                        <li><img src="/static/snow_pictures/snow_slope1.jpg" alt="roof_slope" height="60"></li>
-                        <li>при 0&#176;&#8804;&#945;&#8804;30&#176; &#8594; &#956;<sub>1</sub>=1,0</li>
-                        <li>при 30&#176;&#60;&#945;&#60;60&#176; &#8594; &#956;<sub>1</sub>=0,8&#8729;(60-&#945;)/30</li>
-                        <li>при &#945;&#8805;60&#176; &#8594; &#956;<sub>1</sub>=0,0</li>
+                        <li><img src="/static/snow_pictures/snow_slope4.jpg" alt="roof_slope" height="100"></li>
+                        <li>при &#946;>60&#176; &#8594; &#956;<sub>3</sub>=0;</li>
+                        <li>при &#946;&#8804;60 &#8594; &#956;<sub>3</sub>=0,2+10h/b;</li>
                     </ul>
                 </td>
             </tr>
             <tr>
-                <td>Наличие на кровле снегозадерживающий устройств</td>
-                <td>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="roof_check">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            -выбрать если есть снегозадержатели
-                        </label>
-                    </div>
-                </td>
-                <td class="form-text">
-                    <ul class="list-unstyled">
-                        <li>согласно п. 5.3.2(2) при наличии</li>
-                        <li>снегозадержателей коэффициент &#956;<sub>i</sub>&#8805;0.8</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>Коэффициент окружающей среды <b>С<sub>e</sub></b></td>
+                <td>Коэффициент окружающей среды, <b>С<sub>e</sub></b></td>
                 <td>
                     <select class="form-select" aria-label="Default select example" name="Ce">
                         <option value="0.8">Не защищенные от ветра (С<sub>e</sub>=0.8)</option>
@@ -78,7 +64,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Температурный коэффициент <b>С<sub>t</sub></b></td>
+                <td>Температурный коэффициент, <b>С<sub>t</sub></b></td>
                 <td>
                     <select class="form-select" aria-label="Default select example" name="Ct">
                         <option value="0.8">С<sub>t</sub>=0.8</option>
@@ -88,7 +74,7 @@
                 <td>
                     <div id="emailHelp" class="form-text">
                         <ul class="list-unstyled">
-                            <li>Требования расписаны в п.5.2(8) НП.1(BY)</li>
+                            <li>Требования расписаны в п.5.2(8) НП.1(BY).</li>
                             <li>В большинстве случаев <b>Сt=1.0</b>.</li>
                         </ul>
                     </div>
@@ -97,7 +83,7 @@
             <tr>
                 <td>Город (район расположения)</td>
                 <td>
-                    <input autocomplete="off" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="начните вводить название..." name="city">
+                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="начните вводить название..." name="city">
                         <datalist id="datalistOptions">
                         <!-- List of lists ('Барановичи', '2в', 23, '193')-->
                         {% for cities in cities %}

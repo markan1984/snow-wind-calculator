@@ -47,7 +47,15 @@
                                 Расчеты воздействий
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="/snow1">Снеговые воздействия</a></li>
+                                    <li><a class="dropdown-item" href="/snow1">Снег на односкатной кровле</a></li>
+                                    <li><a class="dropdown-item" href="/snow2">Снег на двускатной кровле</a></li>
+                                    <li><a class="dropdown-item" href="/snow3">Снег на многопролетной кровле</a></li>
+                                    <li><a class="dropdown-item" href="/snow4">Снег на арочной кровле</a></li>
+                                    <li><a class="dropdown-item" href="/snow5">Снег на перепаде высот</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/snow6">Снег возле заграждений</a></li>
+                                    <li><a class="dropdown-item" href="/snow7">Нагрузки на снегозадержатели</a></li>
+                                    <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="/wind1">Ветровые воздействия</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="#">Доп разделы в разработке...</a></li>
@@ -55,9 +63,9 @@
                             </li>
                         </ul>
                         <ul class="navbar-nav ml-auto mt-2">
-                            <li class="nav-item"><a class="nav-link active" href="/logout">Log Out</a></li>
-                            <li class="nav-item"><a class="nav-link active" href="/change_pass">Change password</a></li>
-                            <li class="nav-item"><a class="nav-link active" href="/login">Обратная связь</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="/logout">Выйти</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="/change_pass">Сменить пароль</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="/info">О проекте</a></li>
                         </ul>
                     {% else %}
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -69,7 +77,15 @@
                                 Расчеты воздействий
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="/snow1">Снеговые воздействия</a></li>
+                                    <li><a class="dropdown-item" href="/snow1">Снег на односкатной кровле</a></li>
+                                    <li><a class="dropdown-item" href="/snow2">Снег на двускатной кровле</a></li>
+                                    <li><a class="dropdown-item" href="/snow3">Снег на многопролетной кровле</a></li>
+                                    <li><a class="dropdown-item" href="/snow4">Снег на арочной кровле</a></li>
+                                    <li><a class="dropdown-item" href="/snow5">Снег на перепаде высот</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/snow6">Снег возле заграждений</a></li>
+                                    <li><a class="dropdown-item" href="/snow7">Нагрузки на снегозадержатели</a></li>
+                                    <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="/wind1">Ветровые воздействия</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="#">Доп разделы в разработке...</a></li>
@@ -79,6 +95,7 @@
                         <ul class="navbar-nav ml-auto mt-2">
                             <li class="nav-item"><a class="nav-link active" href="/register">Регистрация</a></li>
                             <li class="nav-item"><a class="nav-link active" href="/login">Вход</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="/info">О проекте</a></li>
                         </ul>
                     {% endif %}
                 </div>
@@ -98,7 +115,7 @@
         </main>
 
         <footer class="small text-center text-muted">
-            <p>Сайт работает в тестовом режиме. Правила пользования можете прочитать <a href="LINK">здесь</a>.</p>
+            <p>Сайт работает в тестовом режиме. Правила пользования можете прочитать <a href="/info">здесь</a>.</p>
             <p>Для обратной связи необходимо <a href="/login">войти</a> либо <a href="/register">зарегистрироваться</a>.</p>
         </footer>
 
