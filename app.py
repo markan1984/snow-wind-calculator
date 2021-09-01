@@ -648,6 +648,8 @@ def snow6():
         mu1 = 0.8
         h = round(h / 1000, 2)
         mu2 = round(2*h/Sk,3)
+        if mu2 > 2.5:
+            mu2 = 2.5
 
         #---10---Finally calculate the snow load:
         s1 = round(Sk * Ce * Ct * mu1, 2)
